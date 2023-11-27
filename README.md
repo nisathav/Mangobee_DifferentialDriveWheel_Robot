@@ -8,7 +8,15 @@ Note that each directory currently has at least one file in it to ensure that gi
 
 **Linux Commands**
 ------------------
-1. Simulating the robot in Gazebo
-   'ros2 launch Mangobee_DifferentialDriveWheel_Robot rsp.launch.py use_sim_time:=true'
+1. Simulating the robot in Gazebo, the below code will publish the full URDF to /robot_description
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot rsp.launch.py use_sim_time:=true`
+2. launch gazebo with ROS compatability
+   `ros2 launch gazebo_ros gazebo.launch.py`
+3. uploading the robot in to gazebo
+   `ros2 run gazebo_ros spawn_entity.py -topic robot_description -entity robot_name`
+4. create a launch file with the name of launch_sim.py in the launch directory and copy the code
+  `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.py`
+6. add colors using gazebo tag and the friction of the caster wheel
+
    
    
