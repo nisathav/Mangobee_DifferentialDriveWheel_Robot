@@ -37,6 +37,9 @@ Simulating the robot in Gazebo
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot    launch_sim.launch.py    world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
 15. check the velcity if the robot do not move
     `ros2 topic echo /cmd_vel`
+16. check the status of the changes made to document    
+     ~/MangoBee_Robot/src/Mangobee_DifferentialDriveWheel_Robot
+    `git status`
 
 
    
