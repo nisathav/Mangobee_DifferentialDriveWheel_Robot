@@ -44,6 +44,16 @@ Simulating the robot in Gazebo
 18. `git commit -m "resolving the problems"`
 19. `git push`
 
+Adding LiDAR to the robot
+-------------------------
+The following types of LiDAR vailable,
+   > point Lidar (1D Lidar) : Depth or distance
+   > Laser Scanners (2D Lidar) : mapping out the floor
+   > 3D Lidar
+
+Message type for 2D Lidar is sensor_msgs/LaserScan
+Message type for 3D Lidar is sensor_msgs/PointCloud2
+
 
    
    
