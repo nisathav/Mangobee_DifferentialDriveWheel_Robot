@@ -40,6 +40,9 @@ Simulating the robot in Gazebo
 16. check the status of the changes made to document    
      ~/MangoBee_Robot/src/Mangobee_DifferentialDriveWheel_Robot
     `git status`
+17. `git add .`
+18. `git commit -m "resolving the problems"`
+19. `git push`
 
 
    
