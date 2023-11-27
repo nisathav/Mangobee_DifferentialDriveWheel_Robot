@@ -11,6 +11,7 @@ Note that each directory currently has at least one file in it to ensure that gi
 Developing the robot using URDF
 ----------------------------------
 1. 
+
 Simulating the robot in Gazebo
 ----------------------------------
 1. The below code will publish the full URDF to /robot_description
@@ -31,7 +32,10 @@ Simulating the robot in Gazebo
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py`
 12. run the tele operation
     `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
-13. 
+13. create a world with obstacles with construction cones and barrels, save this in the following directory, MangoBee_Robot/src/Mangobee_DifferentialDriveWheel_Robot/world
+14. launch the program inside the world,
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot    launch_sim.launch.py    world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
+
 
    
    
