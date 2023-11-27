@@ -9,10 +9,10 @@ Note that each directory currently has at least one file in it to ensure that gi
 **Linux Commands**
 ------------------
 Developing the robot using URDF
-...............................
+----------------------------------
 1. 
 Simulating the robot in Gazebo
-................................
+----------------------------------
 1. The below code will publish the full URDF to /robot_description
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot rsp.launch.py use_sim_time:=true`
 2. launch gazebo with ROS compatability
