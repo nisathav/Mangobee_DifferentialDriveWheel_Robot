@@ -9,6 +9,6 @@ Note that each directory currently has at least one file in it to ensure that gi
 **Linux Commands**
 ------------------
 1. Simulating the robot in Gazebo
-   >> ros2 launch Mangobee_DifferentialDriveWheel_Robot rsp.launch.py use_sim_time:=true
-   >> 
+   'ros2 launch Mangobee_DifferentialDriveWheel_Robot rsp.launch.py use_sim_time:=true'
+   
    
