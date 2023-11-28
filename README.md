@@ -104,6 +104,11 @@ Integrate the depth camera with ROS,
 5. open rviz and add robotmodel, image, poincloud2. Also, set the following /robotdescription, /camera/depth/image/raw, /camera/points
 6. Toggle around RVIZ to analysis the depth camera
 
+ros2_control Concept and Simulation
+-----------------------------------
+- Always remeber to check the hardware components bing used in the robot to identify the ros2_control.
+- 
+
 
    
    
