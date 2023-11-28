@@ -124,8 +124,12 @@ Control Manager
         1. via ROS services
         2. via ros2 control CLI tool
         3. via specialised nodes/scripts
+           
 1. upgrade gazebo simulation to use ros2_control
    `sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control`
+2. copy gazebo_control.xacro and rename it as ros2_control.xacro
+3. comment out the gazebo_control.xacro in the robot.urdf.xacro and include the ros2_control.xacro
+4. 
 
 
    
