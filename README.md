@@ -47,12 +47,24 @@ Simulating the robot in Gazebo
 Adding LiDAR to the robot
 -------------------------
 The following types of LiDAR vailable,
-   > point Lidar (1D Lidar) : Depth or distance
-   > Laser Scanners (2D Lidar) : mapping out the floor
-   > 3D Lidar
+   - point Lidar (1D Lidar) : Depth or distance
+   - Laser Scanners (2D Lidar) : mapping out the floor
+   - 3D Lidar
 
 Message type for 2D Lidar is sensor_msgs/LaserScan
 Message type for 3D Lidar is sensor_msgs/PointCloud2
+
+1. update the description file with lidar.xacro
+   `colcon build --symlink-install`
+   `source install/setup.bash`
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot rsp.launch.py`
+2. update the lidar.xacro with ros plugins with sensor details
+3. build the package and source the code, run the launch file
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot    launch_sim.launch.py    world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
+4. try to move the robot to see the working concept of lidar
+   `ros2 run teleop_twist_keyboard teleop_twist_keyboard
+5. visulaize the output using rviz2. open rviz2, add LaserScan, select topic /scan and then increase the size to 0.04
+6. left to do, integrate the lidar into rel robot
 
 
    
