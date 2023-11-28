@@ -62,7 +62,7 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 3. build the package and source the code, run the launch file
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot    launch_sim.launch.py    world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
 4. try to move the robot to see the working concept of lidar
-   `ros2 run teleop_twist_keyboard teleop_twist_keyboard
+   `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
 5. visulaize the output using rviz2. open rviz2, add LaserScan, select topic /scan and then increase the size to 0.04
 6. left to do, integrate the lidar into rel robot
 
@@ -81,7 +81,13 @@ Adding Camera to the system
    `source /opt/ros/humble/setup.bash`
 7. re run the gazebo simulator
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
-8. 
+8. install the following package too
+   `sudo apt install ros-humble-rqt-image-view`
+9. launch the following and select the type of image description needed in the rqt image view
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
+   `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
+   `ros2 run rqt_image_view rqt_image_view`
+    
 
    
    
