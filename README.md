@@ -87,7 +87,19 @@ Adding Camera to the system
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
    `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
    `ros2 run rqt_image_view rqt_image_view`
-    
+
+Adding depth camera to the robot
+----------------------------------
+we have three types of technology used in depth camera. These camera return the depth value to each pixel in the photo.
+   1. Structured light: This creates a structure on the wall. based on the distprtions the camera detects the depth.
+   2. Time of flight: This uses the time taken for the pulses to return to its origin position
+   3. Stereo: It uses two camera to detect the depth
+
+Integrate the depth camera with ROS,
+1. Copy the camera.xacro file and rename it to depth_camera.xacro
+2. include the above the xacro file into robot.urdf.xacro
+3. 
+
 
    
    
