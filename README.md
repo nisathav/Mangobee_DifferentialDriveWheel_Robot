@@ -107,7 +107,25 @@ Integrate the depth camera with ROS,
 ros2_control Concept and Simulation
 -----------------------------------
 - Always remeber to check the hardware components bing used in the robot to identify the ros2_control.
-- 
+- Hardware interface has two types of interfaces
+     1. Command Interfaces - Read/Write
+     2. State Interfaces - Read Only
+   to check the interface use the following codes `ros2 control list_hardware_interfaces`
+- Control manager and resource manager uses the URDF file to identify the hardware interfaces
+- To setup the controllers YAML file is being used. multiple controllers can be used.
+- We have two ways to run the control manager,
+     1. own node containing the controller inside (use controller_manager::ControllerManager class)
+     2. Use the provided node controller_manager/ros2_control_node
+- Whatever the method is we need to provide the hardware interface through URDF and the controller information through YAML
+
+
+Control Manager
+   - Interacting with Control Manager
+        1. via ROS services
+        2. via ros2 control CLI tool
+        3. via specialised nodes/scripts
+1. upgrade gazebo simulation to use ros2_control
+   `sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control`
 
 
    
