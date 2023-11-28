@@ -66,6 +66,22 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 5. visulaize the output using rviz2. open rviz2, add LaserScan, select topic /scan and then increase the size to 0.04
 6. left to do, integrate the lidar into rel robot
 
+Adding Camera to the system
+----------------------------
+1. create camera.xacro file in description directory.
+   `colcon build --symlink-install`
+   `source install/setup.bash`
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
+2. turn off the laser visualize and re-launch the above launch file
+3. launch rviz2 and add Image, select topic as /camera/image_raw
+4. add in camera lo, to view the poitioned image in the world
+5. install the following package to vie image and compression.
+   `sudo apt install ros-humble-image-transport-plugins`
+6. source the package above
+   `source /opt/ros/humble/setup.bash`
+7. re run the gazebo simulator
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
+8. 
 
    
    
