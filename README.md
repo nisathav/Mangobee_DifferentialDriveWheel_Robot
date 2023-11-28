@@ -98,7 +98,11 @@ we have three types of technology used in depth camera. These camera return the 
 Integrate the depth camera with ROS,
 1. Copy the camera.xacro file and rename it to depth_camera.xacro
 2. include the above the xacro file into robot.urdf.xacro
-3. 
+3. change the sensor type to depth in the depth_camera.xacro, set the image format to BBGBRB
+4. build the package and run the launch_sim.launch.py file
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
+5. open rviz and add robotmodel, image, poincloud2. Also, set the following /robotdescription, /camera/depth/image/raw, /camera/points
+6. Toggle around RVIZ to analysis the depth camera
 
 
    
