@@ -129,8 +129,7 @@ Control Manager
    `sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control`
 2. copy gazebo_control.xacro and rename it as ros2_control.xacro
 3. comment out the gazebo_control.xacro in the robot.urdf.xacro and include the ros2_control.xacro
-4. Plugin is a small code installed and registered with ros that tells how to talk with gazebo simulation 
-
-
-   
-   
+4. Plugin is a small code installed and registered with ros that tells how to talk with gazebo simulation
+5. when not using gazebo, we will need to run ros2 run controller_manager ros2_control_node
+6. create a new file in the config directory named as my_controllers.yaml
+7. 
