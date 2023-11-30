@@ -10,7 +10,11 @@ Note that each directory currently has at least one file in it to ensure that gi
 ------------------
 Developing the robot using URDF
 ----------------------------------
-1. 
+1. copy the SSH link of the repository I am going to clone into my workspace
+2. create new folder called mangobee_robot and inside that create another folder called src.
+3. go to the directory created.
+4. git clone SSH link
+5. build the package
 
 Simulating the robot in Gazebo
 ----------------------------------
