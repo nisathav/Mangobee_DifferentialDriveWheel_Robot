@@ -132,4 +132,6 @@ Control Manager
 4. Plugin is a small code installed and registered with ros that tells how to talk with gazebo simulation
 5. when not using gazebo, we will need to run ros2 run controller_manager ros2_control_node
 6. create a new file in the config directory named as my_controllers.yaml
-7. 
+7. run the launch file,
+   `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
+8. May notice irrelevant logs while the above command is running. 
