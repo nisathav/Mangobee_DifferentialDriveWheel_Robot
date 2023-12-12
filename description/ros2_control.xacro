@@ -26,7 +26,7 @@
 
         <gazebo>
             <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-                <parameters>Mangobee_DifferentialDriveWheel_Robot/config/my_controllers.yaml</parameters>
+                <parameters>$(find Mangobee_DifferentialDriveWheel_Robot)/config/my_controllers.yaml</parameters>
             </plugin>
         </gazebo>
 
