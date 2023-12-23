@@ -8,6 +8,10 @@ Developing the robot using URDF
 4. git clone SSH link
 5. build the package
 
+![Screenshot from 2023-12-23 14-24-08](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/2692cc8f-3149-4fc1-a01c-1aaf92b43e77)
+
+![Screenshot from 2023-12-23 14-19-08](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/ff9f0aab-4731-4922-8344-35a004ddc234)
+
 Simulating the robot in Gazebo
 ----------------------------------
 1. The below code will publish the full URDF to /robot_description
