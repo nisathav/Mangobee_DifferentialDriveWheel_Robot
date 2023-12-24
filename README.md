@@ -66,6 +66,11 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 5. visulaize the output using rviz2. open rviz2, add LaserScan, select topic /scan and then increase the size to 0.04
 6. left to do, integrate the lidar into rel robot
 
+![lidar_gazebo](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/d0c1c41d-7809-4dbb-a231-8afa06a3cd39)
+![lidar_rviz](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/e166a2f4-108d-432f-92b4-07f826afbc8e)
+![lidar_gazebo1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/75c86567-97d9-4a89-89ae-083597369a1e)
+![lidar_rviz1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/776b5ac7-e3e6-49ee-b34a-7b0735dab40f)
+
 Adding Camera to the system
 ----------------------------
 1. create camera.xacro file in description directory.
@@ -88,6 +93,9 @@ Adding Camera to the system
    `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
    `ros2 run rqt_image_view rqt_image_view`
 
+![camera_gazebo](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/623f5d90-f21b-43ee-ab19-0374974fe0d8)
+![camera_rviz](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/afa029d7-8a7d-4ac8-a314-2c9838444cd6)
+
 Adding depth camera to the robot
 ----------------------------------
 we have three types of technology used in depth camera. These camera return the depth value to each pixel in the photo.
@@ -103,6 +111,10 @@ Integrate the depth camera with ROS,
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
 5. open rviz and add robotmodel, image, poincloud2. Also, set the following /robotdescription, /camera/depth/image/raw, /camera/points
 6. Toggle around RVIZ to analysis the depth camera
+
+![Screenshot from 2023-12-23 17-45-16](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/e5e1c6d1-2aa3-4bbd-ae8a-c2f9cc90b539)
+![Screenshot from 2023-12-23 17-44-54](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/2dbe31f3-141e-44c3-a485-383145913646)
+
 
 ros2_control Concept and Simulation
 -----------------------------------
