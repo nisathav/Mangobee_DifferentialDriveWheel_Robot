@@ -71,6 +71,19 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 ![lidar_gazebo1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/75c86567-97d9-4a89-89ae-083597369a1e)
 ![lidar_rviz1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/776b5ac7-e3e6-49ee-b34a-7b0735dab40f)
 
+1. adding real ydlidar with the pc
+2. `git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git`
+3. `cd ydlidar_ros2_driver` then `colcon build --symlink-install` you will receive error
+4. `sudo apt install cmake pkg-config`
+5. `sudo apt-get install swig`
+6. `sudo apt-get install python3-pip`
+7. go to this link `https://github.com/YDLIDAR/YDLidar-SDK.git` and fork the repo to your github and then clone the repo to your local host
+8. `mkdir YDLidar-SDK/build` `cd YDLidar-SDK/build` `cmake ..` `make` `sudo make install`
+9. `cd YDLidar-SDK` `pip install .`
+10. plug in the lidar and use `sudo chmod 777 /dev/ttyUSB0`
+11. `cd ~/YDLidar-SDK/build
+./tri_test`
+
 Adding Camera to the system
 ----------------------------
 1. create camera.xacro file in description directory.
