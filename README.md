@@ -71,7 +71,7 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 ![lidar_gazebo1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/75c86567-97d9-4a89-89ae-083597369a1e)
 ![lidar_rviz1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/776b5ac7-e3e6-49ee-b34a-7b0735dab40f)
 
-1. adding real ydlidar with the pc
+1. adding real `ydlidar` with the pc
 2. `git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git`
 3. `cd ydlidar_ros2_driver` then `colcon build --symlink-install` you will receive error
 4. `sudo apt install cmake pkg-config`
@@ -82,6 +82,16 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 9. `cd YDLidar-SDK` `pip install .`
 10. plug in the lidar and use `sudo chmod 777 /dev/ttyUSB0`
 11. `cd ~/YDLidar-SDK/build` `./tri_test`
+12. after this changes being done. try to the changes below
+13. under path `~/ydlidar_ros2_driver/src/ydlidar_ros2_driver_node.cpp` change from `node->declare_parameter("port");` to `node->declare_parameter<std::string>("port");`
+14. you have few changes to be done as like above use the following data type for different data types. `<std::string>
+<std::int16_t>
+<std::float_t>
+<bool>` save and exit
+15. now build the package `colcon build --symlink-install`
+16. when its done. few changes to be done `~/ydlidar_ros2_driver/params/ydlidar.yaml` and `~/ydlidar_ros2_driver/launch/ydlidar_launch_view.py` according to `https://qiita.com/porizou1/items/57edeeda15bbec76a462` and `https://qiita.com/Yuya-Shimizu/items/c516b076ecc15864c0c5`
+17. then build the package, source the package and run the launch file `ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py`
+18. In rviz2 select the `laserscan->reliabilitypolicy->besteffort`
 
 Adding Camera to the system
 ----------------------------
