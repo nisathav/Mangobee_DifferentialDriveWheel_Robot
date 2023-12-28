@@ -81,8 +81,7 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 8. `mkdir YDLidar-SDK/build` `cd YDLidar-SDK/build` `cmake ..` `make` `sudo make install`
 9. `cd YDLidar-SDK` `pip install .`
 10. plug in the lidar and use `sudo chmod 777 /dev/ttyUSB0`
-11. `cd ~/YDLidar-SDK/build
-./tri_test`
+11. `cd ~/YDLidar-SDK/build` `./tri_test`
 
 Adding Camera to the system
 ----------------------------
