@@ -7,6 +7,7 @@ Developing the robot using URDF
 3. go to the directory created.
 4. git clone SSH link
 5. build the package
+6. When opening the robot in rviz2 some of the models may not be showing up like the wheels here. To solve this issue `ros2 run joint_state_publisher_gui joint_state_publisher_gui`
 
 ![Screenshot from 2023-12-23 14-24-08](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/2692cc8f-3149-4fc1-a01c-1aaf92b43e77)
 
