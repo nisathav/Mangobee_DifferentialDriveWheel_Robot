@@ -171,3 +171,7 @@ Control Manager
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
 8. May notice irrelevant logs while the above command is running.
 9. `ros2 run controller_manager ros2_control_node`,`ros2 run controller_manager spawner diff_cont`
+
+SLAM (Simultaneous Localisation and Mapping) with 2D YDLidar
+------------------------------------------------------------
+1. 
