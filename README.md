@@ -174,4 +174,39 @@ Control Manager
 
 SLAM (Simultaneous Localisation and Mapping) with 2D YDLidar
 ------------------------------------------------------------
-1. 
+1. insert the following in the robot_core.xacro
+   `<!-- BASE_FOOTPRINT LINK -->
+
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="base_footprint">
+    </link>`
+2. install the slam toolbox `sudo apt install ros-humble-slam-toolbox`
+3. run the slam toolbox on online ans asynchronous
+4. copy the param file `cp /opt/ros/humble/share/slam_toolbox/config/mapper_params_online_sync.yaml mangobee_robot/src/Mangobee_DifferentialDriveWheel_Robot/config/`
+5. rebuild the package and source it
+6. open the gazebo `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world` 
+7. also open the rviz2 `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`
+8. open new terminal and run `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+9. add map to the rviz and change the fixed frame to `map` so that map can stay fixed, the robot can move freely.
+10. now map out the entire platform
+11. `ros2 service list` will give the services including the slam toolbox offer
+12. you can open slam toolbox terminal in rviz2 aso to save the map and for other stuff related to slam
+13. panel -> add new panel -> slamtoolbox
+14. you can see bunch of options. save map button used to save the map. serialize map used to save it and use it with slam toolbox again.
+15. rerun the `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+16. do the change in mapper_params_online_async.yaml. change mode `from mapper to localization`, change map_file_name from `test_steve to /home/mangobee_robot/my_map_serial`, also un comment the `map_start_at_dock`
+17. rerun `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true` to open the saved map and then continue on it.
+18. we have many localization method. one of them is `AMCL: Adaptive Monte Carlo Localisation`
+19. Install Nav2 `sudo apt install ros-humble-navigation2`
+20. 
+    
+   
+Object Tracking
+---------------
+1. install open CV `sudo apt install python3-opencv`
+2. 
