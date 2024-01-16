@@ -203,9 +203,14 @@ SLAM (Simultaneous Localisation and Mapping) with 2D YDLidar
 17. rerun `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true` to open the saved map and then continue on it.
 18. we have many localization method. one of them is `AMCL: Adaptive Monte Carlo Localisation`
 19. Install Nav2 `sudo apt install ros-humble-navigation2`
-20. 
+20. create a map node and publish it. `ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=mymap_save.yaml -p use_sim_time:=true`
+21. Open new tap and run `ros2 run nav2_util lifecycle_bringup map_server`
+22. rerun rviz `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`and gazebo
+23. once the rviz2 opened you may face different problem. map -> durability ability -> Transient Local
+24. new tap, `ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true` and in another tap run the following `ros2 run nav2_util lifecycle_bringup amcl`
+25. also set the place of the robot in the map using `2D pose estimate` and then the problem should have been sorted out
+
     
-   
 Object Tracking
 ---------------
 1. install open CV `sudo apt install python3-opencv`
