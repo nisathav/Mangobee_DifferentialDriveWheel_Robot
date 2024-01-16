@@ -176,39 +176,37 @@ SLAM (Simultaneous Localisation and Mapping) with 2D YDLidar
 ------------------------------------------------------------
 1. insert the following in the robot_core.xacro
    `<!-- BASE_FOOTPRINT LINK -->
-
     <joint name="base_footprint_joint" type="fixed">
         <parent link="base_link"/>
         <child link="base_footprint"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
-
     <link name="base_footprint">
     </link>`
-2. install the slam toolbox `sudo apt install ros-humble-slam-toolbox`
-3. run the slam toolbox on online ans asynchronous
-4. copy the param file `cp /opt/ros/humble/share/slam_toolbox/config/mapper_params_online_sync.yaml mangobee_robot/src/Mangobee_DifferentialDriveWheel_Robot/config/`
-5. rebuild the package and source it
-6. open the gazebo `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world` 
-7. also open the rviz2 `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`
-8. open new terminal and run `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
-9. add map to the rviz and change the fixed frame to `map` so that map can stay fixed, the robot can move freely.
-10. now map out the entire platform
-11. `ros2 service list` will give the services including the slam toolbox offer
-12. you can open slam toolbox terminal in rviz2 aso to save the map and for other stuff related to slam
-13. panel -> add new panel -> slamtoolbox
-14. you can see bunch of options. save map button used to save the map. serialize map used to save it and use it with slam toolbox again.
-15. rerun the `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
-16. do the change in mapper_params_online_async.yaml. change mode `from mapper to localization`, change map_file_name from `test_steve to /home/mangobee_robot/my_map_serial`, also un comment the `map_start_at_dock`
-17. rerun `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true` to open the saved map and then continue on it.
-18. we have many localization method. one of them is `AMCL: Adaptive Monte Carlo Localisation`
-19. Install Nav2 `sudo apt install ros-humble-navigation2`
-20. create a map node and publish it. `ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=mymap_save.yaml -p use_sim_time:=true`
-21. Open new tap and run `ros2 run nav2_util lifecycle_bringup map_server`
-22. rerun rviz `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`and gazebo
-23. once the rviz2 opened you may face different problem. map -> durability ability -> Transient Local
-24. new tap, `ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true` and in another tap run the following `ros2 run nav2_util lifecycle_bringup amcl`
-25. also set the place of the robot in the map using `2D pose estimate` and then the problem should have been sorted out
+3. install the slam toolbox `sudo apt install ros-humble-slam-toolbox`
+4. run the slam toolbox on online ans asynchronous
+5. copy the param file `cp /opt/ros/humble/share/slam_toolbox/config/mapper_params_online_sync.yaml mangobee_robot/src/Mangobee_DifferentialDriveWheel_Robot/config/`
+6. rebuild the package and source it
+7. open the gazebo `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world` 
+8. also open the rviz2 `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`
+9. open new terminal and run `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+10. add map to the rviz and change the fixed frame to `map` so that map can stay fixed, the robot can move freely.
+11. now map out the entire platform
+12. `ros2 service list` will give the services including the slam toolbox offer
+13. you can open slam toolbox terminal in rviz2 aso to save the map and for other stuff related to slam
+14. panel -> add new panel -> slamtoolbox
+15. you can see bunch of options. save map button used to save the map. serialize map used to save it and use it with slam toolbox again.
+16. rerun the `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+17. do the change in mapper_params_online_async.yaml. change mode `from mapper to localization`, change map_file_name from `test_steve to /home/mangobee_robot/my_map_serial`, also un comment the `map_start_at_dock`
+18. rerun `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true` to open the saved map and then continue on it.
+19. we have many localization method. one of them is `AMCL: Adaptive Monte Carlo Localisation`
+20. Install Nav2 `sudo apt install ros-humble-navigation2`
+21. create a map node and publish it. `ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=mymap_save.yaml -p use_sim_time:=true`
+22. Open new tap and run `ros2 run nav2_util lifecycle_bringup map_server`
+23. rerun rviz `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`and gazebo
+24. once the rviz2 opened you may face different problem. map -> durability ability -> Transient Local
+25. new tap, `ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true` and in another tap run the following `ros2 run nav2_util lifecycle_bringup amcl`
+26. also set the place of the robot in the map using `2D pose estimate` and then the problem should have been sorted out
 
     
 Object Tracking
