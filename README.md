@@ -208,6 +208,13 @@ SLAM (Simultaneous Localisation and Mapping) with 2D YDLidar
 25. new tap, `ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true` and in another tap run the following `ros2 run nav2_util lifecycle_bringup amcl`
 26. also set the place of the robot in the map using `2D pose estimate` and then the problem should have been sorted out
 
+Navigation
+----------
+1. install the following `sudo apt install ros-humble-twist-mux`
+2. open a file in the config folder named as `twist_mux.yaml`
+3. run the twist_mux.yaml file `ros2 run twist_mux twist_mux --ros-args --params-file ./src/Mangobee_DifferentialDriveWheel_Robot/config/twist_mux.yaml -r cmd_vel_out:=diff_cont/cmd_vel_unstamped`
+4. rebuild package and launch gazebo `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world` also open rviz2
+5. source the file and run the slam toolbox ``
     
 Object Tracking
 ---------------
