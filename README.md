@@ -238,9 +238,15 @@ Making the launch file and param file available within our own package:
 7. now we can use the following code `ros2 launch nav2_bringup localization_launch.py map:=./my_map_save.yaml use_sim_time:=true` as `ros2 launch Mangobee_DifferentialDriveWheel_Robot localization_launch.py map:=./my_map_save.yaml use_sim_time:=true`
 8. do the changes in online_async_launch.py `default_value=os.path.join(get_package_share_directory("Mangobee_DifferentialDriveWheel_Robot"), #changed from slam_toolbox to Mangobee_DifferentialDriveWheel_Robot`
 9. try use `localization_launch.py` instead of `online_async_launch.py` copied it to the Mangobee_DifferentialDriveWheel_Robot package
+10. add the twist_mux file into the launch file
 
-Adding twist_mux into our package launch file:
-1. 
+pushing to git:
+1. `directory - mangobee_robot/src/Mangobee_DifferentialDriveWheel_Robot` `git status`status
+2. `git add .`
+3. `git commit -m "adding the nav stack and the slam toolbox"`
+4. `git pull origin main`
+5. `git merge`
+6. `git push origin main`
 
     
 Object Tracking
