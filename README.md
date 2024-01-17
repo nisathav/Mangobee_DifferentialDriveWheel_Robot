@@ -7,6 +7,11 @@ Developing the robot using URDF
 3. go to the directory created.
 4. git clone SSH link
 5. build the package
+6. When opening the robot in rviz2 some of the models may not be showing up like the wheels here. To solve this issue `ros2 run joint_state_publisher_gui joint_state_publisher_gui`
+
+![Screenshot from 2023-12-23 14-24-08](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/2692cc8f-3149-4fc1-a01c-1aaf92b43e77)
+
+![Screenshot from 2023-12-23 14-19-08](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/ff9f0aab-4731-4922-8344-35a004ddc234)
 
 Simulating the robot in Gazebo
 ----------------------------------
@@ -62,6 +67,33 @@ Message type for 3D Lidar is sensor_msgs/PointCloud2
 5. visulaize the output using rviz2. open rviz2, add LaserScan, select topic /scan and then increase the size to 0.04
 6. left to do, integrate the lidar into rel robot
 
+![lidar_gazebo](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/d0c1c41d-7809-4dbb-a231-8afa06a3cd39)
+![lidar_rviz](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/e166a2f4-108d-432f-92b4-07f826afbc8e)
+![lidar_gazebo1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/75c86567-97d9-4a89-89ae-083597369a1e)
+![lidar_rviz1](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/776b5ac7-e3e6-49ee-b34a-7b0735dab40f)
+
+1. adding real `ydlidar` with the pc
+2. `git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git`
+3. `cd ydlidar_ros2_driver` then `colcon build --symlink-install` you will receive error
+4. `sudo apt install cmake pkg-config`
+5. `sudo apt-get install swig`
+6. `sudo apt-get install python3-pip`
+7. go to this link `https://github.com/YDLIDAR/YDLidar-SDK.git` and fork the repo to your github and then clone the repo to your local host
+8. `mkdir YDLidar-SDK/build` `cd YDLidar-SDK/build` `cmake ..` `make` `sudo make install`
+9. `cd YDLidar-SDK` `pip install .`
+10. plug in the lidar and use `sudo chmod 777 /dev/ttyUSB0`
+11. `cd ~/YDLidar-SDK/build` `./tri_test`
+12. after this changes being done. try to the changes below
+13. under path `~/ydlidar_ros2_driver/src/ydlidar_ros2_driver_node.cpp` change from `node->declare_parameter("port");` to `node->declare_parameter<std::string>("port");`
+14. you have few changes to be done as like above use the following data type for different data types. `<std::string>
+<std::int16_t>
+<std::float_t>
+<bool>` save and exit
+15. now build the package `colcon build --symlink-install`
+16. when its done. few changes to be done `~/ydlidar_ros2_driver/params/ydlidar.yaml` and `~/ydlidar_ros2_driver/launch/ydlidar_launch_view.py` according to `https://qiita.com/porizou1/items/57edeeda15bbec76a462` and `https://qiita.com/Yuya-Shimizu/items/c516b076ecc15864c0c5`
+17. then build the package, source the package and run the launch file `ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py`
+18. In rviz2 select the `laserscan->reliabilitypolicy->besteffort`
+
 Adding Camera to the system
 ----------------------------
 1. create camera.xacro file in description directory.
@@ -84,6 +116,9 @@ Adding Camera to the system
    `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
    `ros2 run rqt_image_view rqt_image_view`
 
+![camera_gazebo](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/623f5d90-f21b-43ee-ab19-0374974fe0d8)
+![camera_rviz](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/afa029d7-8a7d-4ac8-a314-2c9838444cd6)
+
 Adding depth camera to the robot
 ----------------------------------
 we have three types of technology used in depth camera. These camera return the depth value to each pixel in the photo.
@@ -99,6 +134,10 @@ Integrate the depth camera with ROS,
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
 5. open rviz and add robotmodel, image, poincloud2. Also, set the following /robotdescription, /camera/depth/image/raw, /camera/points
 6. Toggle around RVIZ to analysis the depth camera
+
+![Screenshot from 2023-12-23 17-45-16](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/e5e1c6d1-2aa3-4bbd-ae8a-c2f9cc90b539)
+![Screenshot from 2023-12-23 17-44-54](https://github.com/nisathav/Mangobee_DifferentialDriveWheel_Robot/assets/129756080/2dbe31f3-141e-44c3-a485-383145913646)
+
 
 ros2_control Concept and Simulation
 -----------------------------------
@@ -132,3 +171,79 @@ Control Manager
    `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world`
 8. May notice irrelevant logs while the above command is running.
 9. `ros2 run controller_manager ros2_control_node`,`ros2 run controller_manager spawner diff_cont`
+
+SLAM (Simultaneous Localisation and Mapping) with 2D YDLidar
+------------------------------------------------------------
+1. insert the following in the robot_core.xacro
+   `<!-- BASE_FOOTPRINT LINK -->
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <link name="base_footprint">
+    </link>`
+3. install the slam toolbox `sudo apt install ros-humble-slam-toolbox`
+4. run the slam toolbox on online ans asynchronous
+5. copy the param file `cp /opt/ros/humble/share/slam_toolbox/config/mapper_params_online_sync.yaml mangobee_robot/src/Mangobee_DifferentialDriveWheel_Robot/config/`
+6. rebuild the package and source it
+7. open the gazebo `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world` 
+8. also open the rviz2 `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`
+9. open new terminal and run `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+10. add map to the rviz and change the fixed frame to `map` so that map can stay fixed, the robot can move freely.
+11. now map out the entire platform
+12. `ros2 service list` will give the services including the slam toolbox offer
+13. you can open slam toolbox terminal in rviz2 aso to save the map and for other stuff related to slam
+14. panel -> add new panel -> slamtoolbox
+15. you can see bunch of options. save map button used to save the map. serialize map used to save it and use it with slam toolbox again.
+16. rerun the `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+17. do the change in mapper_params_online_async.yaml. change mode `from mapper to localization`, change map_file_name from `test_steve to /home/mangobee_robot/my_map_serial`, also un comment the `map_start_at_dock`
+18. rerun `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true` to open the saved map and then continue on it.
+19. we have many localization method. one of them is `AMCL: Adaptive Monte Carlo Localisation`
+20. Install Nav2 `sudo apt install ros-humble-navigation2`
+21. create a map node and publish it. `ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=my_map_save.yaml -p use_sim_time:=true`
+22. Open new tap and run `ros2 run nav2_util lifecycle_bringup map_server`
+23. rerun rviz `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`and gazebo
+24. once the rviz2 opened you may face different problem. map -> durability ability -> Transient Local
+25. new tap, `ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true` and in another tap run the following `ros2 run nav2_util lifecycle_bringup amcl`
+26. also set the place of the robot in the map using `2D pose estimate` and then the problem should have been sorted out
+
+Navigation
+----------
+1. install the following `sudo apt install ros-humble-twist-mux`
+2. open a file in the config folder named as `twist_mux.yaml`
+3. run the twist_mux.yaml file `ros2 run twist_mux twist_mux --ros-args --params-file ./src/Mangobee_DifferentialDriveWheel_Robot/config/twist_mux.yaml -r cmd_vel_out:=diff_cont/cmd_vel_unstamped`
+4. rebuild package and launch gazebo `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world` also open rviz2
+5. source the file and run the slam toolbox `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+6. `ros2 launch nav2_bringup navigation_launch.py use_sime_time:=true`
+7. add another map in the rviz, `topic -> /global_costmap/costmap` then `color scheme -> cost_map`
+8. select `2D Goal Pose` it will automatically move to the point
+
+Navigation using ACML:
+1. run twist_mux, gazebo and rviz2
+2. run `ros2 launch nav2_bringup localization_launch.py map:=./my_map_save.yaml use_sim_time:=true`
+3. set the `2D Pose Estimate` and select `map -> Topic -> Durability Policy -> Transient Local`
+4. for navigation `ros2 launch nav2_bringup navigation_launch.py use_sime_time:=true map_subscribe_transient_local:=true`
+5. add another map in the rviz, `topic -> /global_costmap/costmap` then `color scheme -> cost_map`
+6. when using navigation through this, the base map wont be updated with any new obstacle but the cost map will update in real time
+7. select `2D Goal Pose` it will automatically move to the point
+
+Making the launch file and param file available within our own package:
+1. `cp /opt/ros/humble/share/nav2_bringup/params/nav2_params.yaml src/Mangobee_DifferentialDriveWheel_Robot/config/`
+2. `cp /opt/ros/humble/share/nav2_bringup/launch/navigation_launch.py src/Mangobee_DifferentialDriveWheel_Robot/launch/`
+3. `cp /opt/ros/humble/share/nav2_bringup/launch/localization_launch.py src/Mangobee_DifferentialDriveWheel_Robot/launch/`
+4. `cp /opt/ros/humble/share/slam_toolbox/launch/online_async_launch.py src/Mangobee_DifferentialDriveWheel_Robot/launch/`
+5. Do the following changes in navigation_launch.py `bringup_dir = get_package_share_directory('Mangobee_DifferentialDriveWheel_Robot') #refernece to the package changed from nav2_bringup` and `default_value=os.path.join(bringup_dir, 'config', 'nav2_params.yaml'), #param changed to config`
+6. do the same thing to localiation_launch.py too
+7. now we can use the following code `ros2 launch nav2_bringup localization_launch.py map:=./my_map_save.yaml use_sim_time:=true` as `ros2 launch Mangobee_DifferentialDriveWheel_Robot localization_launch.py map:=./my_map_save.yaml use_sim_time:=true`
+8. do the changes in online_async_launch.py `default_value=os.path.join(get_package_share_directory("Mangobee_DifferentialDriveWheel_Robot"), #changed from slam_toolbox to Mangobee_DifferentialDriveWheel_Robot`
+9. try use `localization_launch.py` instead of `online_async_launch.py` copied it to the Mangobee_DifferentialDriveWheel_Robot package
+
+Adding twist_mux into our package launch file:
+1. 
+
+    
+Object Tracking
+---------------
+1. install open CV `sudo apt install python3-opencv`
+2. 
