@@ -201,7 +201,7 @@ SLAM (Simultaneous Localisation and Mapping) with 2D YDLidar
 18. rerun `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true` to open the saved map and then continue on it.
 19. we have many localization method. one of them is `AMCL: Adaptive Monte Carlo Localisation`
 20. Install Nav2 `sudo apt install ros-humble-navigation2`
-21. create a map node and publish it. `ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=mymap_save.yaml -p use_sim_time:=true`
+21. create a map node and publish it. `ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=my_map_save.yaml -p use_sim_time:=true`
 22. Open new tap and run `ros2 run nav2_util lifecycle_bringup map_server`
 23. rerun rviz `rviz2 -d src/Mangobee_DifferentialDriveWheel_Robot/config/view_bot.rviz`and gazebo
 24. once the rviz2 opened you may face different problem. map -> durability ability -> Transient Local
@@ -214,7 +214,19 @@ Navigation
 2. open a file in the config folder named as `twist_mux.yaml`
 3. run the twist_mux.yaml file `ros2 run twist_mux twist_mux --ros-args --params-file ./src/Mangobee_DifferentialDriveWheel_Robot/config/twist_mux.yaml -r cmd_vel_out:=diff_cont/cmd_vel_unstamped`
 4. rebuild package and launch gazebo `ros2 launch Mangobee_DifferentialDriveWheel_Robot launch_sim.launch.py world:=./src/Mangobee_DifferentialDriveWheel_Robot/worlds/obstacles.world` also open rviz2
-5. source the file and run the slam toolbox ``
+5. source the file and run the slam toolbox `ros2 launch slam_toolbox online_async_launch.py params_file:=./src/Mangobee_DifferentialDriveWheel_Robot/config/mapper_params_online_async.yaml use_sim_time:=true`
+6. `ros2 launch nav2_bringup navigation_launch.py use_sime_time:=true`
+7. add another map in the rviz, `topic -> /global_costmap/costmap` then `color scheme -> cost_map`
+8. select `2D Goal Pose` it will automatically move to the point
+
+Navigation using ACML:
+1. run twist_mux, gazebo and rviz2
+2. run `ros2 launch nav2_bringup localization_launch.py map:=./my_map_save.yaml use_sim_time:=true`
+3. set the `2D Pose Estimate` and select `map -> Topic -> Durability Policy -> Transient Local`
+4. for navigation `ros2 launch nav2_bringup navigation_launch.py use_sime_time:=true map_subscribe_transient_local:=true`
+5. add another map in the rviz, `topic -> /global_costmap/costmap` then `color scheme -> cost_map`
+6. when using navigation through this, the base map wont be updated with any new obstacle but the cost map will update in real time
+7. select `2D Goal Pose` it will automatically move to the point
     
 Object Tracking
 ---------------
