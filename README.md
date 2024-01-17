@@ -227,6 +227,17 @@ Navigation using ACML:
 5. add another map in the rviz, `topic -> /global_costmap/costmap` then `color scheme -> cost_map`
 6. when using navigation through this, the base map wont be updated with any new obstacle but the cost map will update in real time
 7. select `2D Goal Pose` it will automatically move to the point
+
+Making the launch file and param file available within our own package:
+1. `cp /opt/ros/humble/share/nav2_bringup/params/nav2_params.yaml src/Mangobee_DifferentialDriveWheel_Robot/config/`
+2. `cp /opt/ros/humble/share/nav2_bringup/launch/navigation_launch.py src/Mangobee_DifferentialDriveWheel_Robot/launch/`
+3. `cp /opt/ros/humble/share/nav2_bringup/launch/localization_launch.py src/Mangobee_DifferentialDriveWheel_Robot/launch/`
+4. `cp /opt/ros/humble/share/slam_toolbox/launch/online_async_launch.py src/Mangobee_DifferentialDriveWheel_Robot/launch/`
+5. Do the following changes in navigation_launch.py `bringup_dir = get_package_share_directory('Mangobee_DifferentialDriveWheel_Robot') #refernece to the package changed from nav2_bringup` and `default_value=os.path.join(bringup_dir, 'config', 'nav2_params.yaml'), #param changed to config`
+6. do the same thing to localiation_launch.py too
+7. now we can use the following code `ros2 launch nav2_bringup localization_launch.py map:=./my_map_save.yaml use_sim_time:=true` as `ros2 launch Mangobee_DifferentialDriveWheel_Robot localization_launch.py map:=./my_map_save.yaml use_sim_time:=true`
+8. do the changes in online_async_launch.py `default_value=os.path.join(get_package_share_directory("Mangobee_DifferentialDriveWheel_Robot"), #changed from slam_toolbox to Mangobee_DifferentialDriveWheel_Robot`
+9. try use `localization_launch.py` instead of `online_async_launch.py`
     
 Object Tracking
 ---------------
