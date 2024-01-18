@@ -252,4 +252,4 @@ pushing to git:
 Object Tracking
 ---------------
 1. install open CV `sudo apt install python3-opencv`
-2. 
+2. edit the twist_mux 
