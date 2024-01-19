@@ -265,6 +265,19 @@ Detecting the ball:
 5. `ros2 run ball_tracker detect_ball --ros-args -p tuning_mode:=true -r image_in:=camera/image_raw`
 6. in rviz2, open image display -> topic -> /image_tuning
 7. insert specktrum plane after the tennis ball vertically
-8. adjust the parameters on the `Tuning` window
+8. adjust the parameters on the `Tuning` window. parameter value `0,100,39,100,21,30,41,255,0,255,0,20`
 9. to get the point measurements of the ball `ro2 topic echo /detected_ball`
-10. 
+
+3D position estimation:
+1. `ros2 run ball_tracker detect_ball_3d`
+2. rviz2 -> Marker -> topic -> /ball_3d_marker
+3. navigate the ball in gazebo and track the changes in the rviz2
+
+Follow the ball:
+1. `ros2 run ball_tracker follow_ball --ros-args -r cm_vel:=cmd_vel_tracker`
+2. launch file `ros2 launch ball_tracker ball_tracker.launch.py --show-args` it will show the available parameters
+3. copy the params file from ball_tracker to Mangobee_DifferentialDriveWheel_Robot
+4. copy the tuning window paramters
+5. `ros2 launch ball_tracker ball_tracker.launch.py params_file:=src/Mangobee_DifferentialDriveWheel_Robot/config/ball_tracker_params_sim.yaml`
+6. or use this `ros2 launch ball_tracker ball_tracker.launch.py params_file:=src/Mangobee_DifferentialDriveWheel_Robot/config/ball_tracker_params_sim.yaml enable_3d_tracker:=true`
+7. after creating launch file in Mangobee_DifferentialDriveWheel_Robot, `ros2 launch Mangobee_DifferentialDriveWheel_Robot ball_tracker.launch.py sim_mode:=true`
