@@ -252,4 +252,19 @@ pushing to git:
 Object Tracking
 ---------------
 1. install open CV `sudo apt install python3-opencv`
-2. edit the twist_mux 
+2. edit the twist_mux and insert the topic `tracker`
+3. source the workspace and open the robot in the gazebo
+4. add a tennis ball in the gazebo using sphere and change the ball size and the collision
+5. Open rviz2
+
+Detecting the ball:
+1. centre of the frame is (0,0)
+2. clone the github `git clone git@github.com:joshnewans/ball_tracker` within the src on the package
+3. build the package
+4. source the workspace
+5. `ros2 run ball_tracker detect_ball --ros-args -p tuning_mode:=true -r image_in:=camera/image_raw`
+6. in rviz2, open image display -> topic -> /image_tuning
+7. insert specktrum plane after the tennis ball vertically
+8. adjust the parameters on the `Tuning` window
+9. to get the point measurements of the ball `ro2 topic echo /detected_ball`
+10. 
