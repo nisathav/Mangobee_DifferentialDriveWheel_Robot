@@ -274,7 +274,7 @@ Detecting the ball:
 3. navigate the ball in gazebo and track the changes in the rviz2
 
 Follow the ball:
-1. `ros2 run ball_tracker follow_ball --ros-args -r cm_vel:=cmd_vel_tracker`
+1. `ros2 run ball_tracker follow_ball --ros-args -r cmd_vel:=cmd_vel_tracker`
 2. launch file `ros2 launch ball_tracker ball_tracker.launch.py --show-args` it will show the available parameters
 3. copy the params file from ball_tracker to Mangobee_DifferentialDriveWheel_Robot
 4. copy the tuning window paramters
