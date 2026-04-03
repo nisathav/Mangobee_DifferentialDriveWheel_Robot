@@ -152,7 +152,9 @@ ros2_control Concept and Simulation
      1. own node containing the controller inside (use controller_manager::ControllerManager class)
      2. Use the provided node controller_manager/ros2_control_node
 - Whatever the method is we need to provide the hardware interface through URDF and the controller information through YAML
-
+- how to run the controllers,
+     1. using our own node with controller manager inside that
+     2. using the given node especifically for this, controller_manager/ros2_control_node
 
 Control Manager
    - Interacting with Control Manager
